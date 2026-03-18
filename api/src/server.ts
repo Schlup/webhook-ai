@@ -25,21 +25,21 @@ app.register(fastifyCors, {
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: "Webhook Inspector API",
-      description: "API for capturing and inspecting webhooks requests",
-      version: "1.0.0",
-    }
+      title: 'Webhook Inspector API',
+      description: 'API for capturing and inspecting webhooks requests',
+      version: '1.0.0',
+    },
   },
   transform: jsonSchemaTransform,
 })
 
 app.register(ScalarApiReference, {
-  routePrefix: "/docs"
+  routePrefix: '/docs',
 })
 
 app.register(listWebhooks)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTTP Server running at http://localhost:' + env.PORT)
-  console.log("Docs available at http://localhost:" + env.PORT + "/docs")
+  console.log('Docs available at http://localhost:' + env.PORT + '/docs')
 })
