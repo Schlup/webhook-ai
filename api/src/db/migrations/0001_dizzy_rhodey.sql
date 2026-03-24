@@ -1,0 +1,1 @@
+ALTER TABLE "webhooks" RENAME COLUMN "query_parms" TO "query_params";
