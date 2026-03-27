@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { db } from '.'
-import { webhhooks } from './schema'
+import { webhooks } from './schema'
 
 const stripeEvents = [
     'charge.succeeded',
@@ -92,13 +92,13 @@ function generateStripeWebhook() {
 async function seed() {
     console.log('🌱 Seeding database...')
 
-    await db.delete(webhhooks)
+    await db.delete(webhooks)
 
     const webhooksData = Array.from({ length: 60 }, () => generateStripeWebhook())
 
     webhooksData.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
 
-    await db.insert(webhhooks).values(webhooksData)
+    await db.insert(webhooks).values(webhooksData)
 
     console.log('✅ Database seeded successfully with 60 Stripe webhooks!')
 }

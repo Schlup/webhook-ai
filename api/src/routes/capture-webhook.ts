@@ -1,6 +1,6 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
-import { webhhooks } from '@/db/schema'
+import { webhooks } from '@/db/schema'
 import { db } from '@/db'
 
 export const captureWebhook: FastifyPluginAsyncZod = async (app) => {
@@ -46,7 +46,7 @@ export const captureWebhook: FastifyPluginAsyncZod = async (app) => {
             )
 
             const result = await db
-                .insert(webhhooks)
+                .insert(webhooks)
                 .values({
                     method,
                     ip,

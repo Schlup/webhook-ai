@@ -1,6 +1,7 @@
 import { db } from '@/db'
-import { webhhooks } from '@/db/schema'
-import { desc, lt } from 'drizzle-orm'
+import { webhooks } from '@/db/schema'
+import { desc } from 'drizzle-orm'
+import { lt } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-zod'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -14,21 +15,20 @@ export const listWebhooks: FastifyPluginAsyncZod = async (app) => {
         tags: ['Webhooks'],
         querystring: z.object({
           limit: z.coerce.number().min(1).max(100).default(20),
-          cursor: z.string().optional()
+          cursor: z.string().optional(),
         }),
         response: {
           200: z.object({
             webhooks: z.array(
-              createSelectSchema(webhhooks).pick({
+              createSelectSchema(webhooks).pick({
                 id: true,
                 method: true,
                 path: true,
                 createdAt: true,
               })
             ),
-            nextCursor: z.string().nullable()
+            nextCursor: z.string().nullable(),
           })
-
         },
       },
     },
@@ -37,25 +37,23 @@ export const listWebhooks: FastifyPluginAsyncZod = async (app) => {
 
       const result = await db
         .select({
-          id: webhhooks.id,
-          method: webhhooks.method,
-          path: webhhooks.path,
-          createdAt: webhhooks.createdAt
+          id: webhooks.id,
+          method: webhooks.method,
+          path: webhooks.path,
+          createdAt: webhooks.createdAt,
         })
-        .from(webhhooks)
-        .where(cursor ? lt(webhhooks.id, cursor) : undefined)
-        .orderBy(desc(webhhooks.id))
+        .from(webhooks)
+        .where(cursor ? lt(webhooks.id, cursor) : undefined)
+        .orderBy(desc(webhooks.id))
         .limit(limit + 1)
 
       const hasMore = result.length > limit
-
       const items = hasMore ? result.slice(0, limit) : result
-
       const nextCursor = hasMore ? items[items.length - 1].id : null
 
       return reply.send({
         webhooks: items,
-        nextCursor
+        nextCursor,
       })
     },
   )

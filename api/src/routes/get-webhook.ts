@@ -1,7 +1,7 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { createSelectSchema } from "drizzle-zod"
 import { z } from 'zod'
-import { webhhooks } from '@/db/schema'
+import { webhooks } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 
@@ -16,7 +16,7 @@ export const getWebhook: FastifyPluginAsyncZod = async (app) => {
                     id: z.uuidv7(),
                 }),
                 response: {
-                    200: createSelectSchema(webhhooks),
+                    200: createSelectSchema(webhooks),
                     404: z.object({ message: z.string() })
                 },
             },
@@ -27,8 +27,8 @@ export const getWebhook: FastifyPluginAsyncZod = async (app) => {
 
             const result = await db
                 .select()
-                .from(webhhooks)
-                .where(eq(webhhooks.id, id))
+                .from(webhooks)
+                .where(eq(webhooks.id, id))
                 .limit(1)
 
             if (result.length === 0) {

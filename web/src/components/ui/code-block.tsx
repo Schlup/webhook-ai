@@ -17,7 +17,7 @@ export function CodeBlock({
 
     useEffect(() => {
         if (code) {
-            codeToHtml(code, { lang: language, theme: 'gruvbox-dark-medium' }).then(
+            codeToHtml(code, { lang: language, theme: 'andromeeda' }).then(
                 (parsed) => setParsedCode(parsed),
             )
         }
