@@ -19,7 +19,6 @@ export function SectionDataTable({
       {...props}
     >
       <table className="w-full">
-        {/* Added tbody wrapper here */}
         <tbody>
           {data.map((item) => {
             return (
