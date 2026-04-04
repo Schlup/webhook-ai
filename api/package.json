@@ -26,6 +26,7 @@
     "typescript": "~5.9.3"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.58",
     "@fastify/cors": "^11.2.0",
     "@fastify/swagger": "^9.7.0",
     "@scalar/fastify-api-reference": "^1.49.0",

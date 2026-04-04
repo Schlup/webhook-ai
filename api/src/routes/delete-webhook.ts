@@ -1,40 +1,39 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { createSelectSchema } from "drizzle-zod"
+import { createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
 import { webhooks } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 
 export const deleteWebhook: FastifyPluginAsyncZod = async (app) => {
-    app.delete(
-        '/api/webhooks/:id',
-        {
-            schema: {
-                summary: 'Delete a sepecific webhook by ID',
-                tags: ['Webhooks'],
-                params: z.object({
-                    id: z.uuidv7(),
-                }),
-                response: {
-                    204: z.void(),
-                    404: z.object({ message: z.string() })
-                },
-            },
+  app.delete(
+    '/api/webhooks/:id',
+    {
+      schema: {
+        summary: 'Delete a sepecific webhook by ID',
+        tags: ['Webhooks'],
+        params: z.object({
+          id: z.uuidv7(),
+        }),
+        response: {
+          204: z.void(),
+          404: z.object({ message: z.string() }),
         },
-        async (request, reply) => {
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params
 
-            const { id } = request.params
+      const result = await db
+        .delete(webhooks)
+        .where(eq(webhooks.id, id))
+        .returning()
 
-            const result = await db
-                .delete(webhooks)
-                .where(eq(webhooks.id, id))
-                .returning()
+      if (result.length === 0) {
+        return reply.status(404).send({ message: 'Webhook not found' })
+      }
 
-            if (result.length === 0) {
-                return reply.status(404).send({ message: "Webhook not found" })
-            }
-
-            return reply.status(204).send()
-        },
-    )
+      return reply.status(204).send()
+    },
+  )
 }
