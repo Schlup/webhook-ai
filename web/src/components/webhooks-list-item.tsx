@@ -22,7 +22,7 @@ export function WebhooksListItem({ webhook, onWebhookChecked, isWebhookChecked }
 
   const { mutate: deleteWebhook } = useMutation({
     mutationFn: async (id: string) => {
-      await fetch(`http://localhost:3333/api/webhooks/${id}`, {
+      await fetch(`https://webhook-ai-o425.onrender.com/api/webhooks/${id}`, {
         method: 'DELETE',
       })
     },

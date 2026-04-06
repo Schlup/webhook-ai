@@ -23,7 +23,7 @@ export function WebhooksList() {
     useSuspenseInfiniteQuery({
       queryKey: ['webhooks'],
       queryFn: async ({ pageParam }) => {
-        const url = new URL('http://localhost:3333/api/webhooks')
+        const url = new URL('https://webhook-ai-o425.onrender.com/api/webhooks')
 
         if (pageParam) {
           url.searchParams.set('cursor', pageParam)
@@ -85,7 +85,7 @@ export function WebhooksList() {
     setIsGenerating(true)
 
     try {
-      const response = await fetch('http://localhost:3333/api/generate', {
+      const response = await fetch('https://webhook-ai-o425.onrender.com/api/webhooks/api/generate', {
         method: 'POST',
         body: JSON.stringify({ webhooksIds: checkedWebhooksIds }),
         headers: {
