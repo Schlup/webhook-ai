@@ -14,7 +14,7 @@ export function Sidebar() {
       </div>
       <div className="flex items-center gap-2 border-b border-zinc-700 bg-zinc-800 px-4 py-2.5">
         <div className="flex-1 min-w-0 justify-between flex items-center gap-1 text-xs font-mono   text-zinc-300">
-          <span className="truncate">http://localhost:5173/capute</span>
+          <span className="truncate">http://localhost:5173/capture</span>
           <IconButton icon={<Copy className="size-4" />} />
         </div>
       </div>
