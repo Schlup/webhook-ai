@@ -8,7 +8,7 @@ const envSchema = z.object({
   GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
   DATABASE_URL: z
     .url()
-    .default('postgresql://docker:docker@localhost:5432/webhooks'),
+  // .default('postgresql://docker:docker@localhost:5432/webhooks'),
 })
 
 export const env = envSchema.parse(process.env)

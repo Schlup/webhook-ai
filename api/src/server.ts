@@ -49,5 +49,5 @@ app.register(generateHandler)
 
 app.listen({ port: env.PORT, host: '0.0.0.0' }).then(() => {
   console.log('HTTTP Server running at http://localhost:' + env.PORT)
-  console.log('Docs available at http://localhost:' + env.PORT + '/docs')
+  console.log('Docs available at https://webhook-ai-o425.onrender.com:' + env.PORT + '/docs')
 })
