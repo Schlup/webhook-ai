@@ -30,6 +30,12 @@ export function WebhooksList() {
         }
 
         const response = await fetch(url)
+        
+        if (!response.ok) {
+          const errorPayload = await response.json().catch(() => ({}))
+          throw new Error(errorPayload.message || 'Failed to fetch webhooks')
+        }
+
         const data = await response.json()
 
         return webhookListSchema.parse(data)
